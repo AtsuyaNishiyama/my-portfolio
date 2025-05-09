@@ -1,0 +1,9 @@
+# 機密情報
+.env
+
+# Node.js
+node_modules/
+
+# Vue build
+frontend/dist/
+frontend/node_modules/
