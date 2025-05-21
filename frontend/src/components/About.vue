@@ -1,5 +1,5 @@
 <template>
-    <section class="px-4 py-20 bg-gray-100">
+    <section id="About" class="px-4 py-20 bg-gray-100">
         <h3 class="text-left font-bold text-blue-600 text-4xl"> ― ABOUT ME ―</h3>
 
         <div class="items-center justify-center md:flex">
@@ -25,7 +25,7 @@
                     </div>
                     <div class="flex item-left border-dashed border-gray-400 border-b-2 p-2 m-2">
                         <dt class="w-1/3 text-blue-600">ABOUT</dt>
-                        <dt class="w-2/3 text-gray-900">石川県出身でフロントエンドエンジニアを目指しています。休日はおいしい食べ物を食べます。いつか猫買いたい・・・。</dt>
+                        <dt class="w-2/3 text-gray-900">石川県出身でフロントエンドエンジニアを目指しています。いつか猫買いたい・・・。</dt>
                     </div>
                 </dl>
             </div>

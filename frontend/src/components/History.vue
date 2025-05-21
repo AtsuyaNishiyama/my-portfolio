@@ -11,7 +11,7 @@ const historyItems = [
   {
     year: '2019年',
     short: '8月 株式会社村田製作所へ入社',
-    detail: '8月 株式会社村田製作所へ入社し、製造部として、\n iPhoneやETCの部品を作成を行う'
+    detail: '8月 株式会社村田製作所へ入社し、製造部として、\n iPhoneやETCの部品を作成を行う。'
   },
   {
     year: '2021年',
@@ -26,23 +26,23 @@ const historyItems = [
   },
   {
     year: '2024年',
-    short: '3月 Webを作りたいという思いからNTTデータスマートソーシングを退職\n4月 z株式会社スタッフサービスへ入社',
-    detail: 'Vue 3とTailwind CSSを使って動的なUI作成に挑戦。個人開発やチーム開発も経験。'
+    short: '3月 Webを作りたいという思いからNTTデータスマートソーシングを退職\n4月 株式会社スタッフサービスへ入社\n9月 自学習のみで限界を感じ、オンラインスクールを受講',
+    detail: '1月 いつも何気なく見ていたWebサイトに対して、自分も作って見たいと思うようになり転職活動を始める。\n3月 NTTデータスマートソーシングを退職する。\n4月 Webフロントエンドエンジニアへの転職活動を行うも、完全未経験でポートフォリオ無しでは難しく、同じIT業界株式会社スタッフサービスへ入社する。\n 9月 自学習のみで限界を感じ、オンラインスクールを受講する。'
   },
   {
-    year: '2024年',
-    short: '実務的スキルを強化中。',
-    detail: '転職活動を見据えて、実務に即したコードの書き方や設計、Gitの活用方法などを重点的に学習。'
+    year: '2025年',
+    short: '4月 オンラインスクールで学んだ経験を活かし、サイトを作成',
+    detail: '4月 オンラインスクールで学んだ経験を活かし、サイトを作成。\n現在 Webフロントエンドエンジニアとして再度就職活動を行う。'
+    
   }
 ]
 </script>
 
 <template>
-  
   <section class="px-4 py-20 bg-gray-100 text-center">
-      <h3 class="text-left font-bold text-blue-600 text-4xl pb-8"> ― HISTORY ―</h3>
+    <h3 class="text-left font-bold text-blue-600 text-4xl pb-8"> ― HISTORY ―</h3>
 
-      <div class="max-w-2xl mx-auto text-left space-y-4">
+    <div class="max-w-2xl mx-auto text-left space-y-4">
       <div
         v-for="(item, index) in historyItems"
         :key="index"
@@ -50,10 +50,33 @@ const historyItems = [
       >
         <button
           @click="toggle(index)"
-          class="w-full text-left px-4 py-3 font-semibold text-blue-600 hover:bg-blue-100 transition"
+          class="w-full flex justify-between items-center px-4 py-3 font-semibold text-blue-600 hover:bg-blue-100 transition"
         >
-          {{ item.year }}
+          <span>{{ item.year }}</span>
+          <span>
+            <svg
+              v-if="openIndex === index"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 transform rotate-180"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+            <svg
+              v-else
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
         </button>
+
         <div class="px-4 pb-4 text-gray-700">
           <div class="whitespace-pre-line" v-if="openIndex === index">
             {{ item.detail }}

@@ -1,33 +1,57 @@
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
 const nodemailer = require('nodemailer');
+const { RateLimiterMemory } = require('rate-limiter-flexible'); // ←追加
 
-// メール送信設定
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// ✅ RateLimiter の設定（例：1時間に3回まで）
+const rateLimiter = new RateLimiterMemory({
+  points: 3, // 回数制限（1時間に3回）
+  duration: 3600, // 時間（秒）
+});
+
+// ✅ メール送信設定
 const transporter = nodemailer.createTransport({
-  service: 'gmail',  // 使用するメールサービス
+  service: 'gmail',
   auth: {
-    user: 'your-email@gmail.com', // 送信元のメールアドレス
-    pass: 'your-email-password',   // 送信元のメールアカウントのパスワード
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
-// メール送信処理
-app.post('/api/contact', (req, res) => {
-  const { name, email, message } = req.body;
+// ✅ ルート
+app.post('/api/contact', async (req, res) => {
+  try {
+    await rateLimiter.consume(req.ip); // IPでレート制限をチェック
 
-  const mailOptions = {
-    from: email,  // 送信元のメールアドレス
-    to: 'your-email@gmail.com',  // 受信するメールアドレス
-    subject: `お問い合わせ: ${name}`,  // メールのタイトル
-    text: `名前: ${name}\nメールアドレス: ${email}\nメッセージ: ${message}`,  // メール本文
-  };
+    const { name, email, message } = req.body;
 
-  // メール送信
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log(error);
-      return res.status(500).send('送信に失敗しました');
-    } else {
-      console.log('メールが送信されました: ' + info.response);
-      return res.status(200).send('メッセージを受け取りました');
-    }
-  });
+    const mailOptions = {
+      from: email,
+      to: process.env.EMAIL_USER,
+      subject: `お問い合わせ: ${name}`,
+      text: `名前: ${name}\nメール: ${email}\n\n${message}`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+        return res.status(500).send('送信に失敗しました');
+      }
+      console.log('メール送信完了:', info.response);
+      res.status(200).send('メッセージが送信されました');
+    });
+  } catch (rateLimiterRes) {
+    // ✅ レート制限に引っかかったとき
+    res.status(429).send('リクエストが多すぎます。しばらくしてから再度お試しください。');
+  }
+});
+
+// ✅ サーバー起動
+app.listen(3001, () => {
+  console.log('サーバーが http://localhost:3001 で起動中');
 });

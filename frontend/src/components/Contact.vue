@@ -1,23 +1,29 @@
 <template>
     <section class="px-4 py-20 bg-gray-100 text-center">
-      <h2 class="text-3xl font-bold text-blue-600 mb-8">コンタクト</h2>
-        <form @submit.prevent="handleSubmit">
-          <div class="flex flex-cols items-center justify-center">
-            <label for="name">名前</label>
-            <input v-model="form.name" type="text" id="name" class="bg-gray-400" required />
+      <h3 class="text-left font-bold text-blue-600 text-4xl pb-8"> ― CONTACT ―</h3>
+
+        <form @submit.prevent="handleSubmit" class="max-w-lg mx-auto p-4 bg-white shadow-md rounded-lg">
+          <div class="mb-4">
+            <label for="name" class="block text-lg font-medium text-gray-700">名前</label>
+            <input v-model="form.name" type="text" id="name" class="w-full p-2 mt-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700" required />
           </div>
-          <div class="flex flex-cols items-center justify-center">
-            <label for="email">メールアドレス</label>
-            <input v-model="form.email" type="email" id="email" required />
+
+          <div class="mb-4">
+            <label for="email" class="block text-lg font-medium text-gray-700">メールアドレス</label>
+            <input v-model="form.email" type="email" id="email" class="w-full p-2 mt-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700" required />
           </div>
-          <div>
-            <label for="message">メッセージ</label>
-            <textarea v-model="form.message" id="message" required></textarea>
+
+          <div class="mb-4">
+            <label for="message" class="block text-lg font-medium text-gray-700">メッセージ</label>
+            <textarea v-model="form.message" id="message" class="w-full p-2 mt-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700" required></textarea>
           </div>
-          <button type="submit">送信</button>
-          <div v-if="success">送信成功！</div>
-          <div v-if="error" style="color: red;">{{ error }}</div>
+
+          <button type="submit" class="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">送信</button>
+
+          <div v-if="success" class="mt-4 text-green-500">送信成功！</div>
+          <div v-if="error" class="mt-4 text-red-500">{{ error }}</div>
         </form>
+
     </section>
   </template>
   

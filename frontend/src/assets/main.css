@@ -47,3 +47,11 @@ p, h1, h2, h3, h4, h5, h6 {
 #root, #app {
   isolation: isolate;
 }
+
+/* ブラウザの自動補完（オートコンプリート） CSS Reset */
+@layer utilities {
+  input:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px white inset !important;
+    -webkit-text-fill-color: black !important;
+  }
+}
